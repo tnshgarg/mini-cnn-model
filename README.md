@@ -38,14 +38,19 @@ Our model (`model.py`) is a **Convolutional Neural Network (CNN)**. Think of it 
 
 ## 🎓 How did it learn? (Training)
 
-We trained the model using `train.py`. Here is the process:
+We trained the model using `train.py` for **4 epochs**. Here is the process:
 
 1.  **Guess**: The model looks at a random image and guesses what it is. Initially, it guesses randomly.
 2.  **Check**: We compare the guess to the actual answer (Ground Truth).
 3.  **Learn (Backpropagation)**: We calculate the "Loss" (error). If it guessed "Cat" but it was a "Dog", we adjust the model's internal numbers (weights) slightly to make "Dog" more likely next time.
-4.  **Repeat**: We did this thousands of times (20 epochs) until the error became small.
+4.  **Repeat**: We did this thousands of times until the error became small.
 
-**Final Accuracy**: ~66% (It guesses correct 2 out of 3 times).
+### Training Progress
+As the model practices, its error (Loss) goes down.
+
+![Training Loss Plot](training_plot.png)
+
+**Final Accuracy**: ~62-66% (It guesses correct 2 out of 3 times).
 
 ---
 
@@ -62,7 +67,7 @@ I have already set up the training script for you. If you want to retrain it fro
 ```bash
 python train.py
 ```
-*Note: This runs for 20 epochs and uses your GPU (MPS) if available!*
+*Note: This runs for 4 epochs and uses your GPU (MPS) if available!*
 
 ### 3. See Predictions (The Fun Part!)
 To see the model in action, run the prediction script. It picks a random test image and shows what the model thinks.
@@ -84,4 +89,25 @@ python visualize.py
 - `train.py`: The teacher script that trains the model.
 - `predict.py`: The application script that uses the trained model.
 - `visualize.py`: A helper to peek at the dataset.
+- `training_plot.png`: Graph showing how loss decreased during training.
 - `requirements.txt`: List of dependencies.
+
+---
+
+## 🧪 Experimentation Log
+
+### Experiment 1: Baseline
+- **Configuration**: Simple 2-Layer CNN, 2 Epochs.
+- **Accuracy**: ~50%.
+
+### Experiment 2: Extended Training & Hardware Acceleration
+- **What I Changed**: Increased training epochs from 2 to **20** and enabled **MPS (Metal Performance Shaders)** on Mac.
+- **Why I Expected it to Help**: More training time allows the model to see the data more often and minimize the error further. MPS speeds up this process significantly.
+- **Result (Partially Successful)**: The training loss dropped significantly (~0.1), but the test accuracy plateaued around **66%**. This indicated the model was **overfitting** (memorizing training data but not generalizing).
+
+### Experiment 3: Optimization
+- **What I Changed**: Reduced training to **4 Epochs**.
+- **Why I Expected it to Help**: Since accuracy stopped improving early, shorter training saves time without sacrificing performance.
+- **Result (Success)**: Achieved similar accuracy (~62-66%) in a fraction of the time.
+
+**Conclusion**: The simple CNN architecture has reached its capacity. To improved beyond 70%, specific architectural changes (like adding Residual connections/ResNet) are needed.
