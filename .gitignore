@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Data
+# We ignore the dataset folder because it's large and auto-downloaded
+data/
+
+# Mac
+.DS_Store
+
+# IDEs
+.idea/
+.vscode/
+
+# Note: We are keeping 'cifar_net.pth' (the trained model) because it is small (1MB)
+# and allows users to run 'predict.py' immediately without training.
